@@ -43,9 +43,7 @@ class App extends Component {
           totalHits: imageData.totalHits,
         }));
       } catch (error) {
-        this.setState({
-          error: Notify.failure(`Sorry something went wrong. ${error.message}`),
-        });
+        this.setState({ error });
 
         Notify.failure(`Sorry something went wrong. ${error.message}`);
       } finally {
@@ -54,11 +52,11 @@ class App extends Component {
     }
   }
 
-  handleLoadMore = e => {
+  handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   handleFormSubmit = text => {
-    this.setState({ searchQuery:  text.trim(), page: 1, articles: []});
+    this.setState({ searchQuery: text.trim(), page: 1, articles: [] });
   };
 
   toggleModal = () => {
@@ -80,7 +78,7 @@ class App extends Component {
         <div>
           <Searchbar onSubmit={this.handleFormSubmit} />
           {loading && <Loader />}
-  
+
           {error && (
             <p style={{ color: 'grey', textAlign: 'center' }}>
               {error.message}
@@ -105,12 +103,10 @@ class App extends Component {
             <Modal onClose={this.toggleModal}>
               {<img src={this.state.largeImageURL} alt={this.state.tags} />}
             </Modal>
-          )}       
+          )}
         </div>
       </>
     );
   }
 }
 export default App;
-
-
